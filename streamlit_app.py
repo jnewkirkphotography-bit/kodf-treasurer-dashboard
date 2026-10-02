@@ -8,6 +8,29 @@ import io
 from datetime import date, timedelta
 import streamlit as st
 
+# Require Google sign-in before displaying the dashboard.
+if not st.user.is_logged_in:
+    st.title("KODF Treasurer Dashboard")
+    st.write("Sign in with your approved KODF Google account.")
+    st.button("Sign in with Google", on_click=st.login)
+    st.stop()
+
+# Only explicitly approved, verified email addresses may enter.
+allowed_emails = {
+    email.strip().lower()
+    for email in st.secrets["access"]["allowed_emails"]
+}
+
+user_email = str(st.user.get("email", "")).strip().lower()
+email_verified = st.user.get("email_verified", False) is True
+
+if not email_verified or user_email not in allowed_emails:
+    st.error("You do not have access to this dashboard.")
+    st.button("Sign out", on_click=st.logout)
+    st.stop()
+
+st.sidebar.button("Sign out", on_click=st.logout)
+
 st.set_page_config(page_title="KODF | Treasurer Dashboard", page_icon="📊", layout="wide")
 
 MONTHS = ["2026-06", "2026-07", "2026-08", "2026-09"]
