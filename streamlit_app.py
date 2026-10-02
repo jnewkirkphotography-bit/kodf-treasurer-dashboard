@@ -28,7 +28,9 @@ pages = ["Overview", "Budget", "Close Summary"]
 if can_manage:
     pages += ["Transactions", "Rentals", "Reconciliation", "Connections"]
 st.sidebar.title("KODF Finance")
-st.sidebar.caption(f"Access: {role}")
+st.sidebar.caption(f"Signed in as: {user_email}")
+st.sidebar.caption(f"Admin role configured: {'admin_emails' in access}")
+st.sidebar.caption(f"Email matches admin list: {user_email in emails('admin_emails')}")
 st.sidebar.button("Sign out", on_click=st.logout)
 # Clear a previously selected restricted page if this session's role changes.
 if st.session_state.get("dashboard_page") not in pages:
