@@ -5,7 +5,7 @@ description = "A simple Streamlit app template."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "pillow>=12.3,<13",
+    "pillow>=12.3,<14",
     "psycopg[binary]>=3.3,<4",
     "streamlit[auth]>=1.61.1",
 ]
